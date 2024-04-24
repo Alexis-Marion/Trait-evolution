@@ -15,8 +15,13 @@
 
 
 # Introduction to discrete character evolution
-Traits. This topics is , 
-Over the last two decades, a plethora of discrete models have flourished. Such models are highly versatile and allows for a large range of hypothesis testing.
+Understanding the tempo and mode of character evolution across the Tree of Life is a long-standing topic in macroevolution.
+However, with
+
+As phylogenetic data became increasingly available over th 
+new methods are be implemented
+
+ a plethora of discrete models of trait evolution have flourished. Such models are highly versatile and allow for a large range of hypothesis testing:
 
 - Do my traits evolve at the same rates?
 - What is the ancestral character state for my clade?
@@ -24,88 +29,34 @@ Over the last two decades, a plethora of discrete models have flourished. Such m
 - Does Dollo's law apply to my character set?
 - Are the evolution of two (or more) traits correlated?
 
-Throughout the following tutorial, we will be able to address these questions.
-In this first tutorial, we will focus mostly on the most simple trait configuration possible, a two-state hypothetical morphological trait.
+Throughout the following tutorials, we will be able to address these questions.
+In this first tutorial, we will be introducing the main properties of discrete models of trait evolution, their implementation, and how we can use them to answer macroevolutionary questions.
 
 
 # Data preparation
 
 
-Additionally, we might be interest in ancestral state estimation, or mapping transition on the phylogeny. Commonly the central problem in statistical phylogenetics concerns marginalizing over all unobserved character histories that evolved along the branches of a given phylogenetic tree according to some model, M
-, under some parameters, θ
-. This marginalization yields the probability of observing the tip states, Xtip
-, given the model and its parameters, P(Xtip|θ,M)=∑XinternalP(Xinternal,Xtip∣θ,M)
-. One might also wish to find the probability distribution of ancestral state configurations that are consistent with the tip state distribution, P(Xinternal∣Xtip,θ,M)
-, and to sample ancestral states from that distribution. This procedure is known as ancestral state estimation.
 
+| Taxon\_name   | Discrete_Trait |
+| ------------- |:-------------:|
+sp_1 | 2 
+sp_2 | 2 
+sp_3 | 2 
+sp_4 | 2 
+sp_5 | 2 
+sp_6 | 1 
+sp_7 | 1 
+sp_8 | 1 
+sp_9 | 1 
+sp_10 | 1 
 
-| Taxon\_name   | Status  | MinAge | MaxAge |
-| ------------- |:-------------:| -----:| -----:|
-Canis\_ferox | extinct | 4.9    | 10.3
-Canis\_lepophagus | extinct | 4.9 | 10.3  
-Canis\_ferox | extinct | 4.9 | 10.3  
-Canis\_ferox | extinct | 4.9 | 10.3  
-Canis\_ferox | extinct | 4.9 | 10.3  
-Canis\_edwardii | extinct | 0.3 | 4.9  
-Canis\_armbrusteri | extinct | 0.3 | 4.9  
-Canis\_latrans | extant | 0.3 | 4.9  
-Canis\_latrans | extant | 1.8 | 4.9  
-Canis\_thooides | extinct | 1.8 | 4.9  
 
 2. **Launch R** as explained above.  
 3. **Load the *pyrate_utilities.r* file** as explained above.  
 4. **Parse the raw data and generate PyRate input file**. Type in R:   
   `extract.ages(file="…/PyRate/example_files/Ursidae.txt", replicates=10)` This function includes `replicates` and `cutoff` options as the `extract.ages.pbdb()` function described above (option 1). 
 
-### Accounting for age dependence in multiple occurrences from the same site
-If a fossil assemblage or site contains several occurrences we should consider these occurrences as coeval even as we randomize their age within their temporal range. 
-This can be done by specifying a "Site" column in the input data, with a number specifying the ID of the assemblage for each occurrence. For instance in the example below, the first three occurrences were found in the same site and their random age will be identical.
 
-
-| Taxon\_name   | Status  | MinAge | MaxAge | Site
-| ------------- |:-------------:| -----:| -----:| -----:|
-Canis\_ferox | extinct | 4.9    | 10.3 | 1
-Canis\_lepophagus | extinct | 4.9 | 10.3  | 1
-Canis\_ferox | extinct | 4.9 | 10.3  | 2
-Canis\_ferox | extinct | 4.9 | 5.3  | 3
-Canis\_edwardii | extinct | 0.3 | 4.9  | 4
-Canis\_armbrusteri | extinct | 0.3 | 4.9 | 4 
-Canis\_latrans | extant | 0.3 | 4.9  | 4 
-Canis\_latrans | extant | 1.8 | 4.9  | 5
-Canis\_thooides | extinct | 1.8 | 4.9  | 5
-
-*pyrate_utilities.r* (`extract.ages()`) will automatically resample fossil ages by site when a column named "Site" is included in the input table. Thanks to Peter Wagner and Juan Cantalapiedra for input on this!
-
-
-***
-
-# Check species names for typos and inconsistent spelling
-
-PyRte implements an algorithm to check for inconsistent spelling in species names (expected format: *Genus\_species*) as these can occur frequently especially in large datasets and hamper the accuracy of the analysis. This is implemented in the function `-check_names`, which requires a text file containing one species name for each row. The function can use directly text file (\*\_SpeciesList.txt) generated in the steps described above while preparing yRate's input files.
-
-The function is called as follows:
-
- `python PyRate.py  -check_names .../PBDB_dataset_TaxonList.txt` 
- 
-This returns a table saved in a text file with plausible typos. Ranks 0 and 1 indicate the most likely cases of misspellings, whereas ranks 2 and 3 are most likely truly different names. 
-**NOTE that this algorithm does NOT check for synonyms!**
-
-The output table may look like this: 
-
-| taxon1 | taxon2 | rank |
-| ------------- |-------------| :-----:| 
-Adocus_parvus | Adocus_pravus | 0
-Testudo_annae | Testudo_nanus | 0
-Trionyx_pliocaenicus | Trionyx_pliocenicus | 0
-Testudo_aralensis | Testudo_tarakliensis | 1
-Cyclanorbis_turkanensis | Cyclanorbis_urahensis | 2
-Geochelone_eocaenica | Neochelys_eocaenica | 2
-Megalochelys_sivalensis | Melanochelys_sivalensis | 2
-
-It is up to the researcher to double check these possible inconsistencies and fix the names in their dataset accordingly. 
-
-
-***
 # Estimation of speciation and extinction rates through time
 
 ## Defining the preservation model
