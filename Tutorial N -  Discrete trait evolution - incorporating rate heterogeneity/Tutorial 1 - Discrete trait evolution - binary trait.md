@@ -16,12 +16,10 @@
 
 # Introduction to discrete character evolution
 Understanding the tempo and mode of character evolution across the Tree of Life is a long-standing topic in macroevolution.
-However, with
-
-As phylogenetic data became increasingly available over th 
-new methods are be implemented
-
- a plethora of discrete models of trait evolution have flourished. Such models are highly versatile and allow for a large range of hypothesis testing:
+The first attempts to outline major character transition and radiation were mostly performed on small trees and relied on relatively simple frameworks (_e.g_ maximum parsimony). Yet, such analyses, although useful, most likely lack resolution and precision and probably were prone to methodological biases. Such issues, likely stem from the relatively small size of the examined phylogeny and were also constrained by computational limits.
+However, as both phylogenetic data and powerful computers became increasingly available over the last decades, the possibility of evaluating more complex scenarios of trait evolution became more tangible.
+Thus through rapid methodological improvements, a plethora of discrete models of trait evolution have flourished.
+Such models are highly diverse and versatile and allow for a wide range of hypothesis testing:
 
 - Do my traits evolve at the same rates?
 - What is the ancestral character state for my clade?
@@ -30,12 +28,11 @@ new methods are be implemented
 - Are the evolution of two (or more) traits correlated?
 
 Throughout the following tutorials, we will be able to address these questions.
-In this first tutorial, we will be introducing the main properties of discrete models of trait evolution, their implementation, and how we can use them to answer macroevolutionary questions.
-
+Specifically, in this first tutorial, we will be introducing the main properties of discrete models of trait evolution, their implementation, and how we can use them to answer macroevolutionary questions.
 
 # Data preparation
 
-
+The first step before performing any phylogenetic comparative analyses is to 
 
 | Taxon\_name   | Discrete_Trait |
 | ------------- |:-------------:|
@@ -50,12 +47,11 @@ sp_8 | 1
 sp_9 | 1 
 sp_10 | 1 
 
+# The equal rate model
 
-2. **Launch R** as explained above.  
-3. **Load the *pyrate_utilities.r* file** as explained above.  
-4. **Parse the raw data and generate PyRate input file**. Type in R:   
-  `extract.ages(file="…/PyRate/example_files/Ursidae.txt", replicates=10)` This function includes `replicates` and `cutoff` options as the `extract.ages.pbdb()` function described above (option 1). 
+# Beyond the equal rate model
 
+# Plotting ancestral state esimtate
 
 # Estimation of speciation and extinction rates through time
 
