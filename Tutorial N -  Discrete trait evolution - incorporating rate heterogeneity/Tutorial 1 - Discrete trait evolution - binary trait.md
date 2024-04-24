@@ -7,7 +7,7 @@
 * [Data preparation](Data-preparation)  
 * [The equal rate model](The-equal-rate-model)  
 * [Beyond the equal rate model](Beyond-the-equal-rate-model)
-* [Plotting ancestral state esimates]Plotting-ancestral-state-esimates)
+* [Plotting ancestral state estimates](Plotting-ancestral-state-esimates)
 
 * [Return to Index](https://github.com/Alexis-Marion/Trait-evolution/) 
 ***
