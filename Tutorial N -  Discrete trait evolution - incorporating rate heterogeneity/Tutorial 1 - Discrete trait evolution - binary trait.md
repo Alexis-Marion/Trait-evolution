@@ -3,13 +3,13 @@
 
 ***
 #### Contents
-* [Introduction to discrete character evolution](https://github.com/dsilvestro/PyRate/blob/master/tutorials/pyrate_tutorial_1.md#generate-pyrate-input-file-option-1)
-* [Data preparation](https://github.com/dsilvestro/PyRate/blob/master/tutorials/pyrate_tutorial_1.md#generate-pyrate-input-file-option-1)  
-* [The equal rate model](https://github.com/dsilvestro/PyRate/blob/master/tutorials/pyrate_tutorial_1.md#generate-pyrate-input-file-option-2)  
-* [Beyond the equal rate model](https://github.com/dsilvestro/PyRate/blob/master/tutorials/pyrate_tutorial_1.md#estimation-of-speciation-and-extinction-rates-through-time)
-* [Plotting ancestral state esimates](https://github.com/dsilvestro/PyRate/blob/master/tutorials/pyrate_tutorial_1.md#estimation-of-speciation-and-extinction-rates-through-time)
+* [Introduction to discrete character evolution](Introduction-to-discrete-character-evolution)
+* [Data preparation](Data-preparation)  
+* [The equal rate model](The-equal-rate-model)  
+* [Beyond the equal rate model](Beyond-the-equal-rate-model)
+* [Plotting ancestral state esimates]Plotting-ancestral-state-esimates)
 
-* [Return to Index](https://github.com/dsilvestro/PyRate/tree/master/tutorials#pyrate-tutorials---index) 
+* [Return to Index](https://github.com/Alexis-Marion/Trait-evolution/) 
 ***
 
 
@@ -61,21 +61,11 @@ The assumptions of the MK model in its purest form are rather simple and almost 
 # Beyond the equal rate model
 
 Although the ER is already very useful, assuming equal transition rates among all character states might not be biologically accurate. Thus, similarly to DNA model of sequence evolution, new models relaxed the assumption, by allowing rates to vary across character states. The two most well-known unequal rate models are the Symmetrical rate (SYM; Paradis et al., 2004) and the All Rates Differ (ARD; Paradis et al., 2004). The SYM model assumes that for a K-states trait, with K > 2, qab = qba but qab \neq qca. In the case of a binary state, qab and qba are the only possible transtion and thus the SYM model collapses into the equal rate model. Conversely, the ARD model assumes that all rates may be different, thus qab \neq qba. Thus
-
-However, a major limitation arises from these two models: overparametrization. Overparametrization is the tendency for one model (usually maximum-likelihood) to have
-
-
-# Plotting ancestral state esimtate
-
-When the rate is set to zero, PyRate assigns a vague exponential hyper-prior to the rate and samples the rate along with all other model parameters. This approach is recommended whenever multiple preservation rates are estimated
+Generally, assuming a trait with K unordered states, the number of possible transition rates will be q = ((K-1)*K) for an ARD model and ((K-1)*K)/2 for a SYM model. Thus, as the number of possible states increases, so do the potential transition rates. Consequently, a major limitation arises from these two models: overparametrization. Overparametrization is the tendency for one model (usually maximum-likelihood) to have more parameters than can be estimated from the data. Usually, such limits are obtainable when the number of estimated parameters comes close to the number of data, which is in our case the number of tips.
+Namely, if one works on a relatively small-sized phylogeny, let's ~50 species, and want to estimate transition rates for a 7-state character on an ARD framework, given the equation found above, q = 42, which is very close to what. Consequently, the model will most likely be overparametrized, and thus model selection is de facto flawed.
 
 
-**Gamma model of rate heterogeneity**. NHPP, HPP, and TPP models can all be coupled with a Gamma model of rate heterogeneity, which enables us to account for heterogeneity in the preservation rate across lineages. To set the Gamma model we add the flag `-mG`:
-
-`python PyRate.py .../Canis_pbdb_data_PyRate.py -mG` [NHPP model]  
-`python PyRate.py .../Canis_pbdb_data_PyRate.py -mHPP -mG` [HPP model]
-`python PyRate.py .../Canis_pbdb_data_PyRate.py -qShift .../epochs_q.txt -mG`  
+# Plotting ancestral state estimate
 
 
-**Saving per-lineage relative preservation rates**. When combining a TPP model with a Gamma model you can log to a file the estimated relative preservation rate for each lineage. This is done by adding the flag `-log_sp_q_rates` to the command and will save one additional log file containing one column for each lineage in the data set with the estimated relative rate of preservation (note that the actual rate will depend on the mean preservation rate and it variation through time). 
 
