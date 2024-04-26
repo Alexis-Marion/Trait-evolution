@@ -52,8 +52,8 @@ df_trait<-data.frame(cbind(c(bt_1_eq$AICc,  bt_1_ard$AICc,
                           bt_3_eq$AICc, bt_3_ard$AICc))$weights,
                 c(
 (max(as.vector(bt_1_eq$index.mat)[!is.na(as.vector(bt_1_eq$index.mat))])), (max(as.vector(bt_1_ard$index.mat)[!is.na(as.vector(bt_1_ard$index.mat))])),
-(max(as.vector(bt_2_eq$index.mat)[!is.na(as.vector(bt_2_eq$index.mat))])), (max(as.vector(bt_1_ard$index.mat)[!is.na(as.vector(bt_1_ard$index.mat))])),
-(max(as.vector(bt_3_eq$index.mat)[!is.na(as.vector(bt_3_eq$index.mat))])), (max(as.vector(bt_1_ard$index.mat)[!is.na(as.vector(bt_1_ard$index.mat))])))
+(max(as.vector(bt_2_eq$index.mat)[!is.na(as.vector(bt_2_eq$index.mat))])), (max(as.vector(bt_2_ard$index.mat)[!is.na(as.vector(bt_2_ard$index.mat))])),
+(max(as.vector(bt_3_eq$index.mat)[!is.na(as.vector(bt_3_eq$index.mat))])), (max(as.vector(bt_3_ard$index.mat)[!is.na(as.vector(bt_3_ard$index.mat))])))
                 ))
 rownames(df_trait)<-c("bt_1_eq", "bt_1_ard",
                           "bt_2_eq",  "bt_2_ard",
